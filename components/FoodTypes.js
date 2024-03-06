@@ -57,7 +57,7 @@ const FoodTypes = () => {
 
   return (
     <View>
-      <Text style={{ padding: 20, fontWeight: "bold", fontSize: 15 }}>
+      <Text style={{ padding: 20, fontWeight: "bold", fontSize: 20 }}>
         What's on your mind?
       </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>

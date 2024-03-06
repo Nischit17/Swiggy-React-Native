@@ -15,7 +15,7 @@ const QuickFood = () => {
 
   return (
     <View>
-      <Text style={{ padding: 20, fontWeight: "bold", fontSize: 15 }}>
+      <Text style={{ padding: 20, fontWeight: "bold", fontSize: 20 }}>
         Get It Quickly
       </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -61,6 +61,15 @@ const QuickFood = () => {
           </Pressable>
         ))}
       </ScrollView>
+      <Text
+        style={{
+          padding: 20,
+          fontWeight: "bold",
+          fontSize: 20,
+        }}
+      >
+        Restaurants
+      </Text>
     </View>
   );
 };

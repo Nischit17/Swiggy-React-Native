@@ -13,9 +13,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const MenuItem = ({ item }) => {
+const MenuItem1 = ({ item }) => {
   const navigation = useNavigation();
-
   return (
     <View style={{ margin: 10 }}>
       <Pressable
@@ -23,13 +22,11 @@ const MenuItem = ({ item }) => {
           navigation.navigate("Menu", {
             id: item.id,
             name: item.name,
-            image: item.image,
-            rating: item.rating,
-            time: item.time,
-            adress: item.adress,
-            cost_for_two: item.cost_for_two,
+            image: item.cloudinaryImageId,
+            rating: item.avgRatingString,
+            time: item.sla.deliveryTime,
             cuisines: item.cuisines,
-            menu: item.menu,
+            cost_for_two: item.sla.costForTwo,
           })
         }
         style={{ flexDirection: "row", paddingLeft: 12 }}
@@ -38,7 +35,8 @@ const MenuItem = ({ item }) => {
           <ImageBackground
             imageStyle={{ borderRadius: 8 }}
             style={{ aspectRatio: 4 / 5, height: 150 }}
-            source={{ uri: item.image }}
+            source={{ uri: item.cloudinaryImageId }}
+            resizeMode="cover"
           >
             <AntDesign
               style={{ position: "absolute", right: 10, top: 10 }}
@@ -63,17 +61,27 @@ const MenuItem = ({ item }) => {
           >
             <MaterialIcons name="stars" size={22} color="green" />
             <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {item.rating}
+              {item.avgRatingString}
             </Text>
             <Text style={{ marginLeft: 3 }}>•</Text>
             <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {item.time} mins
+              {item.sla.deliveryTime} mins
             </Text>
           </View>
 
-          {/* Address */}
-          <Text style={{ fontSize: 15, color: "gray", marginTop: 6 }}>
-            {item.adress}
+          {/* Cuisines */}
+          <Text
+            style={{ fontSize: 15, color: "black", marginTop: 6 }}
+            numberOfLines={1}
+          >
+            {item.cuisines.map((cuisine, index) => {
+              const words = cuisine.trim().split(" ");
+              return index === 0
+                ? words.length >= 3
+                  ? cuisine.trim()
+                  : words.slice(0, 3).join(" ") + "..."
+                : "";
+            })}
           </Text>
 
           <View
@@ -113,7 +121,7 @@ const MenuItem = ({ item }) => {
                 fontWeight: "500",
               }}
             >
-              {item.cost_for_two} For Two
+              {item.costForTwo}
             </Text>
           </View>
           <View
@@ -132,6 +140,6 @@ const MenuItem = ({ item }) => {
   );
 };
 
-export default MenuItem;
+export default MenuItem1;
 
 const styles = StyleSheet.create({});

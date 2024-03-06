@@ -4,15 +4,19 @@ import Carousel from "../components/Carousel";
 import FoodTypes from "../components/FoodTypes";
 import QuickFood from "../components/QuickFood";
 import hotels from "../data/hotels";
+import restaurants from "../data/restaurants";
 
 // Icons
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import MenuItem from "../components/MenuItem";
+import MenuItem1 from "../components/MenuItem1";
 
 const HomeScreen = () => {
   const data = hotels;
+
+  const data1 = restaurants;
 
   return (
     <ScrollView style={{ marginTop: 50 }}>
@@ -105,6 +109,10 @@ const HomeScreen = () => {
 
       {data.map((item) => (
         <MenuItem key={item.id} item={item} />
+      ))}
+
+      {data1.map((item) => (
+        <MenuItem1 key={item.info.id} item={item.info} />
       ))}
     </ScrollView>
   );
