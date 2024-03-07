@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  View,
-  ScrollView,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -14,11 +7,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import FoodItem from "../components/FoodItem";
+import { useSelector } from "react-redux";
 
 const MenuScreen = () => {
+  const cart = useSelector((state) => state.cart.cart);
+  const total = cart
+    .map((item) => item.price * item.quantity)
+    .reduce((curr, prev) => curr + prev, 0);
+  console.log(total);
   const route = useRoute();
   const navigation = useNavigation();
-  console.log(route.params);
 
   const [menu, setMenu] = useState([]);
 
@@ -220,6 +218,61 @@ const MenuScreen = () => {
           MENU
         </Text>
       </Pressable>
+
+      {total === 0 ? null : (
+        <Pressable
+          style={{
+            backgroundColor: "#00A877",
+            width: "90%",
+            padding: 13,
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginBottom: 30,
+            position: "absolute",
+            borderRadius: 10,
+            left: 20,
+            bottom: 10,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{ fontSize: 16, fontWeight: "bold", color: "white" }}
+              >
+                {cart.length} items | {total}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "500",
+                  marginTop: 3,
+                  color: "white",
+                }}
+              >
+                FREE DELIVERY 🥳!
+              </Text>
+            </View>
+
+            <Pressable
+              onPress={() =>
+                navigation.navigate("Cart", {
+                  name: route.params.name,
+                })
+              }
+            >
+              <Text style={{ fontSize: 18, fontWeight: "600", color: "white" }}>
+                View Cart
+              </Text>
+            </Pressable>
+          </View>
+        </Pressable>
+      )}
     </>
   );
 };

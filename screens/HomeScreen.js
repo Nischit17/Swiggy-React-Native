@@ -107,12 +107,8 @@ const HomeScreen = () => {
         </Pressable>
       </View> */}
 
-      {data.map((item) => (
-        <MenuItem key={item.id} item={item} />
-      ))}
-
-      {data1.map((item) => (
-        <MenuItem1 key={item.info.id} item={item.info} />
+      {data.map((item, index) => (
+        <MenuItem key={index} item={item} />
       ))}
     </ScrollView>
   );
